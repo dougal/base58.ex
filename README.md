@@ -92,4 +92,4 @@ Alternatively, you can generate docs from the project root with:
 
 Copyright (c) 2017, Douglas F Shearer.
 
-ScatterSwap is licensed under the MIT Licence.
+Base58 is licensed under the MIT Licence.
