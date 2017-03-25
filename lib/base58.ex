@@ -3,43 +3,46 @@ defmodule Base58 do
   Documentation for Base58.
   """
 
-  @alphabet String.split("123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ", ~r{}, trim: true)
-  @base     58
+  @base      58
+  @alphabets %{
+    flickr:  String.split("123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ", ~r{}, trim: true)
+  }
 
   @doc """
   """
-  def int_to_base58(0) do
-    Enum.at(@alphabet, 0)
+  def int_to_base58(integer, alphabet \\ :flickr)
+  def int_to_base58(0, alphabet) do
+    Enum.at(@alphabets[alphabet], 0)
   end
-  def int_to_base58(integer) do
+  def int_to_base58(integer, alphabet) do
     integer
-    |> do_int_to_base58
+    |> do_int_to_base58(alphabet)
     |> Enum.join
     |> String.reverse
   end
 
-  defp do_int_to_base58(0) do
+  defp do_int_to_base58(0, _) do
     []
   end
-  defp do_int_to_base58(integer) do
+  defp do_int_to_base58(integer, alphabet) do
     index = rem(integer, @base)
-    [ Enum.at(@alphabet, index) | do_int_to_base58(div(integer - index, @base))]
+    [ Enum.at(@alphabets[alphabet], index) | do_int_to_base58(div(integer - index, @base), alphabet)]
   end
 
-  def base58_to_int(base58_string) do
+  def base58_to_int(base58_string, alphabet \\ :flickr) do
     base58_string
     |> String.split(~r{}, trim: true)
-    |> do_base58_to_string
+    |> do_base58_to_string(alphabet)
   end
 
-  defp do_base58_to_string([]) do
+  defp do_base58_to_string([], _) do
     0
   end
-  defp do_base58_to_string(char_list) do
+  defp do_base58_to_string(char_list, alphabet) do
     [ char | tail ] = char_list
 
-    index_in_alphabet = Enum.find_index(@alphabet, fn(x) -> x == char end)
+    index_in_alphabet = Enum.find_index(@alphabets[alphabet], fn(x) -> x == char end)
     this_char_value = index_in_alphabet * :math.pow(@base, length(tail))
-    this_char_value + do_base58_to_string(tail)
+    this_char_value + do_base58_to_string(tail, alphabet)
   end
 end
