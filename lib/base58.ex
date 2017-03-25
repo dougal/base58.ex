@@ -40,9 +40,7 @@ defmodule Base58 do
   defp do_base58_to_string([], _) do
     0
   end
-  defp do_base58_to_string(char_list, alphabet) do
-    [ char | tail ] = char_list
-
+  defp do_base58_to_string([ char | tail ], alphabet) do
     index_in_alphabet = Enum.find_index(@alphabets[alphabet], fn(x) -> x == char end)
     this_char_value = index_in_alphabet * :math.pow(@base, length(tail))
     this_char_value + do_base58_to_string(tail, alphabet)
