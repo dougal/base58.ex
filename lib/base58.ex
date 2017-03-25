@@ -8,6 +8,9 @@ defmodule Base58 do
 
   @doc """
   """
+  def int_to_base58(0) do
+    Enum.at(@alphabet, 0)
+  end
   def int_to_base58(integer) do
     integer
     |> do_int_to_base58

@@ -3,6 +3,10 @@ defmodule Base58Test do
   doctest Base58
 
   @examples %{
+              # Base58 => Integer
+              "1"      => 0,
+              "2"      => 1,
+              "21"     => 58,
               "6hKMCS" => 3471391110,
               "6hDrmR" => 3470152229,
               "6hHHZB" => 3470988633,
