@@ -5,7 +5,9 @@ defmodule Base58 do
 
   @base      58
   @alphabets %{
-    flickr:  String.split("123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ", ~r{}, trim: true)
+    flickr:  String.split("123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ", ~r{}, trim: true),
+    bitcoin: String.split("123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz", ~r{}, trim: true),
+    ripple:  String.split("rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz", ~r{}, trim: true)
   }
 
   @doc """
